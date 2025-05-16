@@ -1,0 +1,17 @@
+{
+    "name": "resizedcolumn",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "node bin/build.js",
+        "build": "node bin/build.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "esbuild": "^0.25.4"
+    }
+}
