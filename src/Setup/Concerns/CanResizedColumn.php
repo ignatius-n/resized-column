@@ -12,7 +12,7 @@ trait CanResizedColumn
             return ResizedColumnPlugin::get()->isPreserveOnDBEnabled();
         }
 
-        return config('resized-column.preserve_on_db', false);
+        return false;
     }
 
     public static function preserveOnSession(): bool

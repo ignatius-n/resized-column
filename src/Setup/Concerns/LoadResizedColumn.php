@@ -68,16 +68,43 @@ trait LoadResizedColumn
         $this->columnWidths[$columnName]['width'] = $newWidth;
 
         if (self::isPreservedOnDB()) {
-            TableSetting::updateOrCreate(
-                [
-                    'user_id' => Auth::id(),
-                    'resource' => $this->getResourceModelFullPath(),
-                ],
-                ['styles' => $this->columnWidths]
-            );
+            $this->persistColumnWidthsToDatabase();
         }
 
+        $this->persistColumnWidthsToSession();
+    }
+
+    /**
+     * Persist column widths to the database.
+     * This method can be overridden to customize database operations.
+     */
+    protected function persistColumnWidthsToDatabase(): void
+    {
+        TableSetting::updateOrCreate(
+            [
+                'user_id' => $this->getUserId(),
+                'resource' => $this->getResourceModelFullPath(),
+            ],
+            ['styles' => $this->columnWidths]
+        );
+    }
+
+    /**
+     * Persist column widths to the session.
+     * This method can be overridden to customize session storage.
+     */
+    protected function persistColumnWidthsToSession(): void
+    {
         session()->put($this->getSessionKey(), $this->columnWidths);
+    }
+
+    /**
+     * Get the current user ID for column width storage.
+     * This method can be overridden to customize user identification.
+     */
+    protected function getUserId()
+    {
+        return Auth::id();
     }
 
     protected function getResourceModelFullPath(): string
@@ -110,21 +137,36 @@ trait LoadResizedColumn
     protected function loadColumnWidths(): void
     {
         if (self::isPreservedOnSession()) {
-            $sessionKey = $this->getSessionKey();
-            $this->columnWidths = session($sessionKey);
+            $this->loadColumnWidthsFromSession();
         }
 
-        if (self::isPreservedOnDB()) {
-            if (blank($this->columnWidths)) {
-                $this->columnWidths = TableSetting::query()
-                    ->where('user_id', Auth::id())
-                    ->where('resource', $this->getResourceModelFullPath())
-                    ->value('styles') ?? [];
-
-                session()->put($this->getSessionKey(), $this->columnWidths);
-            }
+        if (self::isPreservedOnDB() && blank($this->columnWidths)) {
+            $this->loadColumnWidthsFromDatabase();
         }
+    }
 
+    /**
+     * Load column widths from the session.
+     * This method can be overridden to customize session retrieval.
+     */
+    protected function loadColumnWidthsFromSession(): void
+    {
+        $sessionKey = $this->getSessionKey();
+        $this->columnWidths = session($sessionKey) ?: [];
+    }
+
+    /**
+     * Load column widths from the database.
+     * This method can be overridden to customize database retrieval.
+     */
+    protected function loadColumnWidthsFromDatabase(): void
+    {
+        $this->columnWidths = TableSetting::query()
+            ->where('user_id', $this->getUserId())
+            ->where('resource', $this->getResourceModelFullPath())
+            ->value('styles') ?? [];
+
+        $this->persistColumnWidthsToSession();
     }
 
     public static function isPreservedOnDB(): bool
