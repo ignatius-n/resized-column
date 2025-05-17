@@ -2,6 +2,7 @@
 
 namespace Asmit\ResizedColumn;
 
+use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Spatie\LaravelPackageTools\Package;
@@ -21,6 +22,7 @@ class ResizedColumnServiceProvider extends PackageServiceProvider
     {
         FilamentAsset::register([
             Js::make('resized-column', __DIR__.'/../resources/dist/js/resized-column.js'),
+            Css::make('resized-column', __DIR__.'/../resources/css/resized-column.css'),
         ], 'asmit/resized-column');
 
         // Register publishable migrations

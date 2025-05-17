@@ -37,6 +37,7 @@ public function panel(Panel $panel): Panel
         ]);
 }
 ```
+
 ## Publishing filament assets
 ```bash
 php artisan filament:assets
@@ -49,6 +50,18 @@ php artisan vendor:publish --provider="Asmit\ResizedColumn\ResizedColumnServiceP
 
 # Run migrations
 php artisan migrate
+```
+
+## Building Assets (For Development)
+
+If you're developing or modifying this package, you'll need to build the assets:
+
+```bash
+# Install dependencies
+npm install
+
+# Build assets
+npm run build
 ```
 
 ## Usage
@@ -121,6 +134,24 @@ class ListUsers extends ListRecords
     }
 }
 ```
+
+## Troubleshooting
+
+### CSS Styles Not Loading
+
+If the resize handles are not displaying correctly:
+
+1. Make sure you have published the Filament assets:
+   ```bash
+   php artisan filament:assets
+   ```
+
+2. Clear your browser cache or try a hard refresh (Ctrl+F5)
+
+3. If developing the package, rebuild the assets:
+   ```bash
+   npm run build
+   ```
 
 ## Credits
 - [Asmit Nepal][link-asmit]
