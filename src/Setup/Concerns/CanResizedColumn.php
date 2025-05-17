@@ -14,4 +14,13 @@ trait CanResizedColumn
 
         return false;
     }
+
+    public static function preserveOnSession(): bool
+    {
+        if (self::resizedColumnPlugged()) {
+            return ResizedColumnPlugin::get()->isPreserveOnSessionEnabled();
+        }
+
+        return config('resized-column.preserve_on_session', true);
+    }
 }
