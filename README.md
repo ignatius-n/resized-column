@@ -52,6 +52,7 @@ php artisan migrate
 ```
 
 ## Usage
+To use the Resized Column functionality, simply include the `HasResizableColumn` trait in your Filament resource class. This will automatically enable the resizable column feature for all tables in that resource.
 ```php
 use Asmit\ResizedColumn\HasResizableColumn;
 
