@@ -5,12 +5,12 @@ The **Resizable Columns** plugin allows you to resize table columns in Filament 
 ![Resized Column](https://raw.githubusercontent.com/AsmitNepali/resized-column/refs/heads/main/images/cover.jpg)
 
 ## Features
--[x] Drag-to-resize column functionality
--[x] Persistent column width settings
--[x] Per-user width preferences
--[x] Session and database storage options
--[x] Easy integration with existing Filament tables
--[x] Customizable storage mechanisms
+- Drag-to-resize column functionality
+- Persistent column width settings
+- Per-user width preferences
+- Session and database storage options
+- Easy integration with existing Filament tables
+- Customizable storage mechanisms
 
 ## Installation
 You can install the package via composer:
