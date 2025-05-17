@@ -38,7 +38,9 @@ public function panel(Panel $panel): Panel
 }
 ```
 ## Publishing filament assets
+```bash
 php artisan filament:assets
+```
 
 ## Publishing Migrations
 ```bash
