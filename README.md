@@ -2,6 +2,8 @@
 
 The **Resizable Columns** plugin allows you to resize table columns in Filament with persistent width settings. This package provides a seamless way to customize table layouts by letting users adjust column widths according to their preferences.
 
+![Resized Column](https://raw.githubusercontent.com/AsmitNepali/resized-column/refs/heads/main/images/cover.jpg)
+
 ## Features
 - Drag-to-resize column functionality
 - Persistent column width settings
@@ -15,18 +17,6 @@ You can install the package via composer:
 
 ```bash
 composer require asmit/resized-column
-```
-
-## Publishing Assets
-```bash
-# Publish migrations
-php artisan vendor:publish --provider="Asmit\ResizedColumn\ResizedColumnServiceProvider" --tag=resized-column-migrations
-
-# Run migrations
-php artisan migrate
-
-# Publish assets
-php artisan filament:assets
 ```
 
 ## Registering the Plugin
@@ -44,9 +34,19 @@ public function panel(Panel $panel): Panel
             // ... other plugins
             ResizedColumnPlugin::make()
                 ->preserveOnDB() // Enable database storage (optional)
-                ->preserveOnSession() // Enable session storage (enabled by default)
         ]);
 }
+```
+## Publishing filament assets
+php artisan filament:assets
+
+## Publishing Migrations
+```bash
+# Publish migrations
+php artisan vendor:publish --provider="Asmit\ResizedColumn\ResizedColumnServiceProvider" --tag=resized-column-migrations
+
+# Run migrations
+php artisan migrate
 ```
 
 ## Usage
@@ -77,12 +77,11 @@ The package provides two storage mechanisms:
    - Requires migration to create the `table_settings` table
    - Works across browsers/devices for the same user
 
-You can enable or disable these options in your panel configuration:
+You can enable or disable database storage in your panel configuration:
 
 ```php
 ResizedColumnPlugin::make()
     ->preserveOnDB(true) // Enable database storage
-    ->preserveOnSession(true) // Enable session storage
 ```
 
 ## Configuration Options
@@ -112,7 +111,7 @@ class ListUsers extends ListRecords
         YourCustomModel::updateOrCreate(
             [
                 'user_id' => $this->getUserId(),
-                'resource' => $this->getResourceModelFullPath(),
+                'resource' => $this->getResourceModelFullPath(), // e.g., 'App\Models\User'
             ],
             ['settings' => $this->columnWidths]
         );
@@ -122,6 +121,7 @@ class ListUsers extends ListRecords
 
 ## Credits
 - [Asmit Nepal][link-asmit]
+- [Kishan Sunar][link-kishan]
 
 ### Security
 
@@ -134,3 +134,4 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 The MIT License (MIT). Please see [License File](LICENSE.txt) for more information.
 
 [link-asmit]: https://github.com/AsmitNepali
+[link-kishan]: https://github.com/Kishan-Sunar
