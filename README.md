@@ -37,7 +37,6 @@ public function panel(Panel $panel): Panel
         ]);
 }
 ```
-
 ## Publishing filament assets
 ```bash
 php artisan filament:assets
@@ -52,20 +51,8 @@ php artisan vendor:publish --provider="Asmit\ResizedColumn\ResizedColumnServiceP
 php artisan migrate
 ```
 
-## Building Assets (For Development)
-
-If you're developing or modifying this package, you'll need to build the assets:
-
-```bash
-# Install dependencies
-npm install
-
-# Build assets
-npm run build
-```
-
 ## Usage
-To use the Resized Column functionality, simply include the `HasResizableColumn` trait in your Filament resource class. This will automatically enable the resizable column feature for all tables in that resource.
+To use the Resized Column functionality, simply include the `HasResizableColumn` trait in your Filament List Page or your custom page class. This will automatically enable the resizable column feature for all tables in that resource.
 ```php
 use Asmit\ResizedColumn\HasResizableColumn;
 
@@ -147,11 +134,6 @@ If the resize handles are not displaying correctly:
    ```
 
 2. Clear your browser cache or try a hard refresh (Ctrl+F5)
-
-3. If developing the package, rebuild the assets:
-   ```bash
-   npm run build
-   ```
 
 ## Credits
 - [Asmit Nepal][link-asmit]
