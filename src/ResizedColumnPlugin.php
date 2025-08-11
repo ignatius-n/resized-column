@@ -2,6 +2,7 @@
 
 namespace Asmit\ResizedColumn;
 
+use Filament\FilamentManager;
 use Asmit\ResizedColumn\Plugin\Concerns\CanResizedColumn;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
@@ -15,7 +16,7 @@ class ResizedColumnPlugin implements Plugin
         return app(static::class);
     }
 
-    public static function get(): Plugin|\Filament\FilamentManager
+    public static function get(): Plugin|FilamentManager
     {
         return filament(app(static::class)->getId());
     }
